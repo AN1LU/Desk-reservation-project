@@ -19,8 +19,8 @@ Aplicación para reservar escritorios, salas de reuniones o cabinas privadas en 
 
 ### Autores
 
-Ana Lucia Pelayo. 
-Emilio Cruz Rodriguez.
-Angel Jael Martinez de Escobar Araiza.
-Carmen Sarahi Amador Marquez. 
-Erick Zahid Martinez Toledo.
+Ana Lucia Pelayo.<br> 
+Emilio Cruz Rodriguez.<br>
+Angel Jael Martinez de Escobar Araiza.<br>
+Carmen Sarahi Amador Marquez. <br>
+Erick Zahid Martinez Toledo.<br>

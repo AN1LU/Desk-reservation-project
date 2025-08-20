@@ -12,7 +12,15 @@ Aplicación para reservar escritorios, salas de reuniones o cabinas privadas en 
 + Control de acceso con códigos QR.
 + Sistema de membresías y beneficios.
 
-Usuarios principales:
+<i>Usuarios principales:</i>
 + Trabajadores remotos.
 + Empresas pequeñas y startups.
 + Administradores de coworking.
+
+### Autores
+
+Ana Lucia Pelayo 
+Emilio Cruz Rodriguez
+Angel Jael Martinez de Escobar Araiza
+Carmen Sarahi Amador Marquez 
+Erick Zahid Martinez Toledo

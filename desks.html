@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CoWork • Reservar escritorio</title>
+  <link rel="stylesheet" href="desks.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand__logo" aria-hidden="true"></div>
+        <span>CoWork</span>
+      </div>
+      <div class="search">
+        <input aria-label="Buscar" placeholder="Buscar"/>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </div>
+      <nav class="menu">
+        <a class="navlink" href="landing.html">Dashboard & tareas</a>
+        <div class="divider"></div>
+        <span class="menu__label">Gestión de reservas</span>
+        <a class="navlink active" href="desks.html">Reservar escritorio</a>
+        <a class="navlink" href="#">Reservar sala</a>
+        <a class="navlink" href="#">Reservar oficina</a>
+        <a class="navlink" href="#">Reservar recurso</a>
+        <div class="divider"></div>
+        <a class="navlink" href="#">Visitantes</a>
+        <a class="navlink" href="#">Facturación</a>
+        <a class="navlink" href="#">Reportes</a>
+        <div class="grow"></div>
+        <div class="user">
+          <div class="avatar">R</div>
+          <div class="user__meta">Randy Kenter<br/><span>Home office</span></div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="filters">
+        <h1>Reservar escritorio</h1>
+        <div class="filters__group">
+          <span class="tag">Para: <strong>Yo</strong></span>
+          <span class="tag">Sede: <strong>NY • Piso 2</strong></span>
+          <span class="tag">Fecha: <strong>Hoy 10:30–12:00</strong></span>
+          <span class="tag">Categoría: <strong>Escritorio</strong></span>
+          <span class="tag">Área: <strong>Marketing</strong></span>
+        </div>
+      </header>
+
+      <!-- Plano del piso (estático) -->
+      <section class="plan">
+        <div class="legend">
+          <span><i class="badge b-available"></i>Disponible</span>
+          <span><i class="badge b-reserved"></i>Reservado</span>
+          <span><i class="badge b-unavailable"></i>No disponible</span>
+        </div>
+
+        <div class="map" aria-label="Mapa de escritorios (estático)">
+          <!-- Contornos de salas -->
+          <div class="room" style="grid-column:1 / span 4; grid-row:1 / span 3;">Office 57</div>
+          <div class="room" style="grid-column:6 / span 4; grid-row:1 / span 3;">Newton<br/>Conference</div>
+          <div class="room" style="grid-column:11 / span 3; grid-row:1 / span 2;">Kitchen</div>
+
+          <!-- Bloques de escritorios -->
+          <div class="block" style="grid-column:2 / span 4; grid-row:4 / span 3;">
+            <div class="desk available"></div>
+            <div class="desk available"></div>
+            <div class="desk reserved"><div class="avatar-sm">AB</div></div>
+            <div class="desk available"></div>
+          </div>
+
+          <div class="block" style="grid-column:8 / span 4; grid-row:4 / span 3;">
+            <div class="desk available"></div>
+            <div class="desk reserved"><div class="avatar-sm">JS</div></div>
+            <div class="desk available"></div>
+            <div class="desk available"></div>
+          </div>
+
+          <div class="block" style="grid-column:13 / span 3; grid-row:4 / span 4; grid-template-columns:repeat(3,1fr)">
+            <div class="desk unavailable"></div>
+            <div class="desk available"></div>
+            <div class="desk reserved"><div class="avatar-sm">MK</div></div>
+            <div class="desk available"></div>
+            <div class="desk available"></div>
+            <div class="desk available"></div>
+          </div>
+
+          <!-- Etiquetas -->
+          <div class="zone" style="grid-column:2 / span 3; grid-row:7;">Desk Area</div>
+          <div class="zone" style="grid-column:9 / span 3; grid-row:7;">Desk Area</div>
+
+          <div class="room" style="grid-column:1 / span 3; grid-row:9 / span 2;">Phone Booth</div>
+          <div class="room" style="grid-column:5 / span 2; grid-row:9 / span 2;">Lobby</div>
+          <div class="room" style="grid-column:9 / span 6; grid-row:9 / span 3;">Mandela Conference</div>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn--ghost" href="#">Restablecer</a>
+          <a class="btn btn--primary" href="#">Continuar</a>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

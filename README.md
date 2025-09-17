@@ -3,7 +3,7 @@
 Este repositorio alberga un proyecto para la materia de <b>Proyectos de ingenieria de software</b>
 
 ## Plataforma de reserva de espacios de coworking
-<i>Descripción:</i>
+<i>Descripción:</i><br>
 Aplicación para reservar escritorios, salas de reuniones o cabinas privadas en espacios de trabajo compartido.
 
 <i>Características clave:</i>

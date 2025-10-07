@@ -1,0 +1,46 @@
+/* Estilos para la vista de perfil, siguiendo el diseño del resto de la app */
+:host {
+  --baseColor: #606468;
+  --bodyBackgroundColor: #2c3338;
+  --bodyColor: var(--baseColor);
+  --bodyFontFamily: 'Open Sans', sans-serif;
+  --bodyFontSize: 0.875rem;
+  --bodyLineHeight: 1.5;
+  --cardBackground: #3b4148;
+  --cardBorderRadius: 0.5rem;
+  --cardShadow: 0 2px 8px rgba(0,0,0,0.12);
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1976d2 0%, #ea4c88 100%);
+  color: #eee;
+  font-family: var(--bodyFontFamily);
+  font-size: var(--bodyFontSize);
+  line-height: var(--bodyLineHeight);
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: center;
+  background: transparent;
+}
+
+.profile-card {
+  background: var(--cardBackground);
+  color: #fff;
+  border-radius: var(--cardBorderRadius);
+  box-shadow: var(--cardShadow);
+  padding: 2.5rem 2rem;
+  max-width: 24rem;
+  width: 100%;
+  text-align: center;
+}
+
+.profile-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  letter-spacing: 1px;
+}

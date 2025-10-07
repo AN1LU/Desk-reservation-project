@@ -1,0 +1,17 @@
+<div class="memberships-container">
+  <div class="memberships-card">
+    <a routerLink="/home" class="back-link">&larr; Volver a inicio</a>
+    <h2 class="title">Membresías</h2>
+    <div class="memberships-list">
+      <div class="membership-card" *ngFor="let m of memberships">
+        <h3>{{ m.name }}</h3>
+        <p class="price">{{ m.price }}</p>
+        <p class="desc">{{ m.description }}</p>
+        <ul class="features">
+          <li *ngFor="let f of m.features">{{ f }}</li>
+        </ul>
+  <button class="btn" (click)="goToPayment(m)">Seleccionar</button>
+      </div>
+    </div>
+  </div>
+</div>

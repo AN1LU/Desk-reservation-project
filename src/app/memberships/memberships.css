@@ -1,0 +1,153 @@
+/* Variables y tipografía locales al componente */
+:host {
+  --baseColor: #606468;
+  --bodyBackgroundColor: #2c3338;
+  --bodyColor: var(--baseColor);
+  --bodyFontFamily: 'Open Sans', sans-serif;
+  --bodyFontSize: 0.875rem;
+  --bodyLineHeight: 1.5;
+  --cardBackground: #3b4148;
+  --cardBorderRadius: 0.5rem;
+  --cardShadow: 0 2px 8px rgba(0,0,0,0.12);
+  --btnBackground: #ea4c88;
+  --btnHoverBackground: #d44179;
+  --btnColor: #eee;
+  --priceColor: #ea4c88;
+
+  display: block;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1976d2 0%, #ea4c88 100%);
+  color: #eee;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.memberships-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: flex-start;
+  background: transparent;
+  padding-top: 3rem;
+}
+
+.title {
+  text-align: center;
+  color: #fff;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  letter-spacing: 1px;
+}
+
+.memberships-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+.membership-card {
+  background: rgba(59, 65, 72, 0.95);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 2rem 1.5rem;
+  min-width: 260px;
+  max-width: 320px;
+  color: #fff;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.membership-card:hover {
+  background: #434a52;
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+.price {
+  color: #ea4c88;
+  font-size: 1.4em;
+  font-weight: 700;
+  margin: 0.7rem 0 0.3rem 0;
+}
+
+.btn {
+  background: #ea4c88;
+  color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.7rem 1.5rem;
+  font-weight: 800;
+  margin-top: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.05em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.btn:hover {
+  background: #d44179;
+  transform: scale(1.06);
+}
+
+.desc {
+  color: #b3e5fc;
+  font-size: 1.15em;
+  margin-bottom: 0.7rem;
+}
+
+.back-link {
+  display: inline-block;
+  margin: 0 auto 2.5rem auto;
+  background: #ea4c88;
+  color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.8rem 1.7rem;
+  font-weight: 800;
+  font-size: 1.1em;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+.back-link:hover {
+  background: #d44179;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 0.7rem 0;
+  width: 100%;
+}
+.features li {
+  background: rgba(44, 51, 56, 0.85);
+  color: #b3e5fc;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-size: 1.05em;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.features li:before {
+  content: '\2713';
+  color: #ea4c88;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}

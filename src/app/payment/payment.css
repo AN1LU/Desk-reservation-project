@@ -1,0 +1,123 @@
+.back-link {
+	position: absolute;
+	top: 2.5rem;
+	left: 2.5rem;
+	padding: 0.8rem 2.2rem;
+	background: #ea4c88;
+	color: #fff;
+	font-weight: 700;
+	font-size: 1.15rem;
+	border-radius: 0.35rem;
+	text-align: center;
+	text-decoration: none;
+	letter-spacing: 1px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+	transition: background 0.2s, transform 0.2s;
+	z-index: 10;
+	display: inline-block;
+}
+.back-link:hover {
+	background: #d44179;
+	transform: translateY(-2px) scale(1.03);
+}
+.payment-container {
+	position: relative;
+}
+/* Variables y tipografía locales al componente */
+:host {
+	--baseColor: #606468;
+	--bodyBackgroundColor: #2c3338;
+	--bodyColor: var(--baseColor);
+	--bodyFontFamily: 'Open Sans', sans-serif;
+	--bodyFontSize: 0.875rem;
+	--bodyLineHeight: 1.5;
+	--cardBackground: #3b4148;
+	--cardBorderRadius: 0.5rem;
+	--cardShadow: 0 2px 8px rgba(0,0,0,0.12);
+	--btnBackground: #ea4c88;
+	--btnHoverBackground: #d44179;
+	--btnColor: #eee;
+	--priceColor: #ea4c88;
+
+	display: block;
+	min-height: 100vh;
+	background: linear-gradient(135deg, #1976d2 0%, #ea4c88 100%);
+	color: #eee;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.5;
+}
+
+.payment-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-height: 100vh;
+	justify-content: flex-start;
+	background: transparent;
+	padding-top: 3rem;
+}
+
+.payment-card {
+	background: rgba(59, 65, 72, 0.95);
+	border-radius: 0.5rem;
+	box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+	padding: 2rem 1.5rem;
+	min-width: 260px;
+	max-width: 320px;
+	color: #fff;
+	text-align: center;
+	transition: background 0.2s, transform 0.2s;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+.payment-card:hover {
+	background: #434a52;
+	transform: translateY(-6px) scale(1.03);
+	box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+.payment-title {
+	text-align: center;
+	color: #fff;
+	font-size: 2.2rem;
+	font-weight: 800;
+	margin-bottom: 2.5rem;
+	letter-spacing: 1px;
+}
+
+.price {
+	color: #ea4c88;
+	font-size: 1.4em;
+	font-weight: 700;
+	margin: 0.7rem 0 0.3rem 0;
+}
+
+.btn {
+	background: var(--btnBackground);
+	color: var(--btnColor);
+	border: none;
+	border-radius: 0.25rem;
+	padding: 0.75rem 1.5rem;
+	font-size: 1rem;
+	font-weight: 700;
+	margin-top: 1.5rem;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+.btn:hover {
+	background: var(--btnHoverBackground);
+}
+
+.success-message {
+	margin-top: 1.5rem;
+	background: #e6ffe6;
+	color: #2d7a2d;
+	border-radius: 8px;
+	padding: 1rem;
+	text-align: center;
+}
+	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}

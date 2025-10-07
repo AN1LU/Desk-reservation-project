@@ -1,0 +1,32 @@
+
+<a routerLink="/memberships" class="back-link">&larr; VOLVER A MEMBRESÍAS</a>
+<div class="payment-container">
+	<div class="payment-card" *ngIf="membership">
+		<h2 class="payment-title">Pago de Membresía</h2>
+		<h3>{{ membership.name }}</h3>
+		<p class="price"><strong>{{ membership.price }}</strong></p>
+		<p><strong>Descripción:</strong> {{ membership.description }}</p>
+		<ul>
+			<li *ngFor="let f of membership.features">{{ f }}</li>
+		</ul>
+
+		<div *ngIf="membership.name === 'Básica' || membership.name === 'Premium'">
+			<label for="userCount">Número de usuarios:</label>
+			<input id="userCount" type="number" min="1" placeholder="Ingresa el número de usuarios" />
+		</div>
+		<div *ngIf="membership.name === 'Corporativa'">
+			<label for="groupName">Nombre del grupo:</label>
+			<input id="groupName" type="text" placeholder="Ingresa el nombre del grupo" />
+		</div>
+
+		<button class="btn" (click)="pagar()">Pagar</button>
+		<div *ngIf="successMessage" class="success-message">
+			{{ successMessage }}
+		</div>
+	</div>
+	<div *ngIf="!membership">
+		<div class="payment-card">
+			<p>No se recibió información de la membresía. Intenta regresar y seleccionar una opción.</p>
+		</div>
+	</div>
+</div>

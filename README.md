@@ -1,88 +1,88 @@
-<<<<<<< HEAD
-# DeskReservationProject
+# Desk-reservation-project
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
+Este repositorio alberga un proyecto para la materia de **Proyectos de ingeniería de software**
 
-## Development server
+## Plataforma de reserva de espacios de coworking
+**Descripción:**
+Aplicación para reservar escritorios, salas de reuniones o cabinas privadas en espacios de trabajo compartido.
 
-To start a local development server, run:
+**Características clave:**
+- Mapa interactivo del espacio con disponibilidad en tiempo real.
+- Pagos y facturación automática.
+- Control de acceso con códigos QR.
+- Sistema de membresías y beneficios.
+
+**Usuarios principales:**
+- Trabajadores remotos.
+- Empresas pequeñas y startups.
+- Administradores de coworking.
+
+### Autores
+
+Ana Lucia Pelayo  
+Emilio Cruz Rodriguez  
+Angel Jael Martinez de Escobar Araiza  
+Carmen Sarahi Amador Marquez  
+Erick Zahid Martinez Toledo  
+
+---
+
+## Instrucciones técnicas
+
+Este proyecto fue generado usando [Angular CLI](https://github.com/angular/angular-cli) versión 20.3.3.
+
+### Servidor de desarrollo
+
+Para iniciar el servidor local de desarrollo, ejecuta:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Luego abre tu navegador en `http://localhost:4200/`. La aplicación se recargará automáticamente cuando modifiques cualquier archivo fuente.
 
-## Code scaffolding
+### Generación de código
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Angular CLI incluye herramientas de scaffolding. Para generar un nuevo componente, ejecuta:
 
 ```bash
-ng generate component component-name
+ng generate component nombre-componente
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Para ver todos los esquemas disponibles (componentes, directivas, pipes, etc.):
 
 ```bash
 ng generate --help
 ```
 
-## Building
+### Compilación
 
-To build the project run:
+Para compilar el proyecto:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Esto compilará el proyecto y guardará los artefactos en la carpeta `dist/`. El build de producción optimiza la aplicación para rendimiento y velocidad.
 
-## Running unit tests
+### Pruebas unitarias
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Para ejecutar pruebas unitarias con [Karma](https://karma-runner.github.io):
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+### Pruebas end-to-end
 
-For end-to-end (e2e) testing, run:
+Para pruebas end-to-end (e2e):
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular CLI no incluye framework e2e por defecto. Puedes elegir el que prefieras.
 
-## Additional Resources
+### Recursos adicionales
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# Desk-reservation-project
-
-Este repositorio alberga un proyecto para la materia de <b>Proyectos de ingenieria de software</b>
-
-## Plataforma de reserva de espacios de coworking
-<i>Descripción:</i>
-Aplicación para reservar escritorios, salas de reuniones o cabinas privadas en espacios de trabajo compartido.
-
-<i>Características clave:</i>
-+ Mapa interactivo del espacio con disponibilidad en tiempo real.
-+ Pagos y facturación automática.
-+ Control de acceso con códigos QR.
-+ Sistema de membresías y beneficios.
-
-<i>Usuarios principales:</i>
-+ Trabajadores remotos.
-+ Empresas pequeñas y startups.
-+ Administradores de coworking.
-
-### Autores
-
-Ana Lucia Pelayo.<br> 
-Emilio Cruz Rodriguez.<br>
-Angel Jael Martinez de Escobar Araiza.<br>
-Carmen Sarahi Amador Marquez. <br>
-Erick Zahid Martinez Toledo.<br>
->>>>>>> 78b2b63a7fd36a4ef3daddb75cfb172f49d5c6bb
+Para más información sobre Angular CLI y comandos, visita la [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).

@@ -1,12 +1,16 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { Home } from './home/home';
+import { Reservations } from './reservations/reservations';
 
 export const routes: Routes = [
+  
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: Home }, // 👈 nueva ruta
+  { path: 'home', component: Home }, 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
+ 
+  { path: 'reservations', component: Reservations },
 ];
+

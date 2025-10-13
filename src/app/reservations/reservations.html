@@ -1,1 +1,43 @@
-<p>reservations works!</p>
+<h2>Mapa de oficina</h2>
+
+<div class="oficina">
+  <!-- Sala de junta superior izquierda -->
+  <button class="sala sala-superior-izquierda" (click)="reservarSala('Sala 1')">
+    Sala 1
+  </button>
+
+  <!-- Sala de junta superior derecha -->
+  <button class="sala sala-superior-derecha" (click)="reservarSala('Sala 2')">
+    Sala 2
+  </button>
+
+  <!-- Escritorios al centro -->
+  <div class="escritorios">
+    <button 
+      *ngFor="let escritorio of escritorios" 
+      class="escritorio"
+      (click)="reservar('Escritorio ' + escritorio)">
+      Escritorio {{ escritorio }}
+    </button>
+  </div>
+
+  <!-- Sala de junta inferior izquierda -->
+  <button class="sala sala-inferior-izquierda" (click)="reservarSala('Sala 3')">
+    Sala 3
+  </button>
+
+  <!-- Sala de junta inferior derecha -->
+  <button class="sala sala-inferior-derecha" (click)="reservarSala('Sala 4')">
+    Sala 4
+  </button>
+</div>
+
+<!-- Pop-up del QR -->
+<div class="popup" *ngIf="mostrarQR">
+  <div class="popup-content">
+    <h3>Reserva generada</h3>
+    <qrcode [qrdata]="qrData" [width]="200"></qrcode>
+    <p>{{ qrData }}</p>
+    <button (click)="cerrarQR()">Cerrar</button>
+  </div>
+</div>

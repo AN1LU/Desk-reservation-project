@@ -1,4 +1,31 @@
 <h2>Mapa de oficina</h2>
+<!-- Botón para abrir el calendario -->
+<div class="acciones">
+  <button class="btn-calendario" (click)="toggleCalendario()">
+  Ver calendario de reservas
+  </button>
+</div>
+
+<div class="calendario-container" *ngIf="mostrarCalendario">
+  <div class="calendario-header">
+    <button (click)="mesAnterior()">◀</button>
+    <h3>{{ mesActual | date:'MMMM yyyy' }}</h3>
+    <button (click)="mesSiguiente()">▶</button>
+  </div>
+
+  <div class="calendario-grid">
+    <div class="dia-header" *ngFor="let dia of diasSemana">{{ dia }}</div>
+
+    <div 
+      class="dia" 
+      *ngFor="let dia of diasDelMes" 
+      [class.hoy]="esHoy(dia)"
+      (click)="seleccionarFecha(dia)">
+      {{ dia.getDate() }}
+    </div>
+  </div>
+</div>
+
 
 <div class="oficina">
   <!-- Sala de junta superior izquierda -->

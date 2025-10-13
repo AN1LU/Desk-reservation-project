@@ -17,6 +17,53 @@ export class Reservations {
   mostrarQR = false;
   qrData = '';
 
+  mostrarCalendario = false;
+  mesActual = new Date();
+  diasDelMes: Date[] = [];
+  diasSemana = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+  ngOnInit() {
+    this.generarCalendario(this.mesActual);
+  }
+
+  toggleCalendario() {
+    this.mostrarCalendario = !this.mostrarCalendario;
+  }
+  generarCalendario(fecha: Date) {
+    const inicio = new Date(fecha.getFullYear(), fecha.getMonth(), 1);
+    const fin = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0);
+    const dias = [];
+
+    for (let d = inicio.getDate(); d <= fin.getDate(); d++) {
+      dias.push(new Date(fecha.getFullYear(), fecha.getMonth(), d));
+    }
+
+    this.diasDelMes = dias;
+  }
+
+  mesAnterior() {
+    this.mesActual = new Date(this.mesActual.getFullYear(), this.mesActual.getMonth() - 1, 1);
+    this.generarCalendario(this.mesActual);
+  }
+
+  mesSiguiente() {
+    this.mesActual = new Date(this.mesActual.getFullYear(), this.mesActual.getMonth() + 1, 1);
+    this.generarCalendario(this.mesActual);
+  }
+
+  esHoy(dia: Date): boolean {
+    const hoy = new Date();
+    return (
+      dia.getDate() === hoy.getDate() &&
+      dia.getMonth() === hoy.getMonth() &&
+      dia.getFullYear() === hoy.getFullYear()
+    );
+  }
+
+  seleccionarFecha(dia: Date) {
+    alert(`Has seleccionado el día ${dia.toLocaleDateString()}`);
+  }
+  
   reservar(item: string) {
     this.qrData = `${item} reservado exitosamente`;
     this.mostrarQR = true;

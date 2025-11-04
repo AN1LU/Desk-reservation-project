@@ -1,25 +1,19 @@
-<div class="align">
-  <div class="grid">
-    <form
-      action="#"
-      method="POST"
-      class="form login"
-      aria-label="Formulario de inicio de sesión (estático)"
-      (submit)="onSubmit($event)"
-      novalidate
-    >
+<div class="auth">
+  <div class="card">
+    <h1 class="card__title">Iniciar sesión</h1>
+
+    <!-- LOGIN -->
+    <form class="form login" (submit)="onSubmit($event)" novalidate>
       <div class="form__field">
         <label for="login__username">
           <svg class="icon"><use xlink:href="#icon-user"></use></svg>
-          <span class="hidden">Usuario</span>
         </label>
         <input
-          autocomplete="username"
           id="login__username"
           type="text"
-          name="username"
           class="form__input"
-          placeholder="Username"
+          placeholder="Usuario o correo"
+          autocomplete="username"
           required
         />
       </div>
@@ -27,44 +21,69 @@
       <div class="form__field">
         <label for="login__password">
           <svg class="icon"><use xlink:href="#icon-lock"></use></svg>
-          <span class="hidden">Contraseña</span>
         </label>
         <input
           id="login__password"
           type="password"
-          name="password"
           class="form__input"
-          placeholder="Password"
+          placeholder="Contraseña"
           autocomplete="current-password"
           required
         />
       </div>
 
-      <div class="form__field">
-        <input type="submit" value="Sign In" [disabled]="loading" />
-      </div>
+      <button type="submit" class="btn btn--primary" [disabled]="loading">Iniciar sesión</button>
 
-      <p *ngIf="errorMsg" class="text--center" style="color: #d33; margin-top: 0.5rem">
-        {{ errorMsg }}
-      </p>
+      <p *ngIf="errorMsg" class="msg msg--err">{{ errorMsg }}</p>
+
+      <!-- Reenviar confirmación -->
+      <div *ngIf="showResend" class="resend">
+        <button type="button" class="btn btn--ghost" (click)="onResendConfirmation()">
+          Reenviar confirmación
+        </button>
+        <p *ngIf="resendInfo" class="msg msg--ok">{{ resendInfo }}</p>
+        <p *ngIf="resendError" class="msg msg--err">{{ resendError }}</p>
+      </div>
     </form>
 
-    <p class="text--center">
-      ¿No tienes cuenta? <a routerLink="/register">Regístrate</a>
-      <svg class="icon"><use xlink:href="#icon-arrow-right"></use></svg>
-    </p>
+    <a href (click)="toggleReset($event)" class="link">¿Olvidaste tu contraseña?</a>
 
-    <p class="text--center" style="margin-top: 0.25rem">
-      <a routerLink="/login">Volver a la landing</a>
-    </p>
+    <!-- RESET PANEL -->
+    <div *ngIf="showReset" class="panel">
+      <h2 class="panel__title">Recuperar contraseña</h2>
+      <form class="reset" (submit)="onResetSubmit($event)" novalidate>
+        <div class="field">
+          <label for="reset__email" class="field__label">
+            <svg class="icon"><use xlink:href="#icon-mail"></use></svg>
+          </label>
+          <input
+            id="reset__email"
+            type="email"
+            class="field__input"
+            placeholder="Ingresa tu correo"
+            required
+          />
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn--ghost" (click)="toggleReset($event)">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn--secondary">Enviar enlace</button>
+        </div>
+        <p *ngIf="resetInfo" class="msg msg--ok">{{ resetInfo }}</p>
+        <p *ngIf="resetError" class="msg msg--err">{{ resetError }}</p>
+      </form>
+    </div>
+
+    <p class="muted">¿No tienes cuenta? <a routerLink="/register">Regístrate</a></p>
   </div>
 </div>
 
-<!-- Sprite de íconos (puedes moverlo a index.html si quieres compartirlo) -->
+<!-- Íconos -->
 <svg xmlns="http://www.w3.org/2000/svg" class="icons">
-  <symbol id="icon-arrow-right" viewBox="0 0 1792 1792">
+  <symbol id="icon-user" viewBox="0 0 1792 1792">
     <path
-      d="M1600 960q0 54-37 91l-651 651q-39 37-91 37-51 0-90-37l-75-75q-38-38-38-91t38-91l293-293H245q-52 0-84.5-37.5T128 1024V896q0-53 32.5-90.5T245 768h704L656 474q-38-36-38-90t38-90l75-75q38-38 90-38 53 0 91 38l651 651q37 35 37 90z"
+      d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q-0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5z"
     />
   </symbol>
   <symbol id="icon-lock" viewBox="0 0 1792 1792">
@@ -72,9 +91,9 @@
       d="M640 768h512V576q0-106-75-181t-181-75-181 75-75 181v192zm832 96v576q0 40-28 68t-68 28H416q-40 0-68-28t-28-68V864q-0-40 28-68t68-28h32V576q0-184 132-316t316-132 316 132 132 316v192h32q40 0 68 28t28 68z"
     />
   </symbol>
-  <symbol id="icon-user" viewBox="0 0 1792 1792">
+  <symbol id="icon-mail" viewBox="0 0 24 24">
     <path
-      d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5q61 0 111.5 20t85.5 53.5 62 81 43 97.5 26.5 108.5 14 109 3.5 103.5z"
+      d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
     />
   </symbol>
 </svg>

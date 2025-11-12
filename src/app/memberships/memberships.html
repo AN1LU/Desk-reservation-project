@@ -2,6 +2,12 @@
   <div class="memberships-card">
     <a routerLink="/home" class="back-link">&larr; Volver a inicio</a>
     <h2 class="title">Membresías</h2>
+    <div *ngIf="hasActiveMembership && !allowPurchase" class="active-note">
+      Tienes una membresía activa hasta {{ currentMembership?.fecha_fin | date:'short' }}. No puedes contratar otra hasta que caduque.
+    </div>
+    <div *ngIf="hasActiveMembership && allowPurchase" class="active-note">
+      Tu membresía básica está agotada (reservas usadas: {{ usedReservationsCount }}). Puedes contratar otra membresía o mejorar tu plan.
+    </div>
     <div class="memberships-list">
       <div class="membership-card" *ngFor="let m of memberships">
         <h3>{{ m.name }}</h3>
@@ -10,7 +16,9 @@
         <ul class="features">
           <li *ngFor="let f of m.features">{{ f }}</li>
         </ul>
-  <button class="btn" (click)="goToPayment(m)">Seleccionar</button>
+  <button class="btn" (click)="goToPayment(m)" [disabled]="!allowPurchase">
+    {{ !allowPurchase ? 'No disponible' : (hasActiveMembership ? 'Membresía activa' : 'Seleccionar') }}
+  </button>
       </div>
     </div>
   </div>

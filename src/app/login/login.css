@@ -1,145 +1,214 @@
-/* Variables y tipografía locales al componente */
 :host {
-  --baseColor: #606468;
-  --htmlFontSize: 100%;
-  --bodyBackgroundColor: #2c3338;
-  --bodyColor: var(--baseColor);
-  --bodyFontFamily: 'Open Sans', sans-serif;
-  --bodyFontSize: 0.875rem;
-  --bodyLineHeight: 1.5;
-  --anchorColor: #eee;
-  --formGap: 0.875rem;
-  --loginBorderRadius: 0.25rem;
-  --loginColor: #eee;
-  --loginInputBackgroundColor: #3b4148;
-  --loginInputHoverBackgroundColor: #434a52;
-  --loginLabelBackgroundColor: #363b41;
-  --loginSubmitBackgroundColor: #ea4c88;
-  --loginSubmitHoverBackgroundColor: #d44179;
-  --loginSubmitColor: #eee;
+  --bg: #2c3338;
+  --card: #1f2529;
+  --label: #363b41;
+  --input: #3b4148;
+  --input-hover: #434a52;
+  --text: #e5e7eb;
+  --muted: #a3a9b3;
+
+  --primary: #ea4c88;
+  --primary-hover: #d44179;
+  --secondary: #1cb5e0;
+  --secondary-hover: #1699c0;
+
+  --radius: 12px;
+  --field-h: 52px;
+  --shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
 
   display: block;
   min-height: 100vh;
-  background-color: var(--bodyBackgroundColor);
-  color: var(--bodyColor);
-  font-family: var(--bodyFontFamily);
-  font-size: var(--bodyFontSize);
-  line-height: var(--bodyLineHeight);
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
-/* Todo lo demás queda encapsulado al template de Login */
-* {
-  box-sizing: border-box;
-}
-.align {
+/* Center */
+.auth {
+  min-height: 100vh;
   display: grid;
   place-items: center;
-  min-height: 100vh;
+  padding: 24px;
 }
-.grid {
-  inline-size: 90%;
-  margin-inline: auto;
-  max-inline-size: 20rem;
+
+/* Card */
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border-radius: 16px;
+  padding: 28px 24px;
+  box-shadow: var(--shadow);
 }
-.hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-a {
-  color: var(--anchorColor);
-  text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
-}
-p {
-  margin-block: 1.5rem;
-}
-.text--center {
+.card__title {
+  margin: 0 0 14px 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.2px;
   text-align: center;
 }
+
+/* Muted text */
+.muted {
+  color: var(--muted);
+  text-align: center;
+  margin: 8px 0;
+}
+.muted a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Icons sprite hidden */
 .icons {
   display: none;
 }
 .icon {
-  block-size: 1em;
-  inline-size: 1em;
-  display: inline-block;
-  vertical-align: middle;
-  fill: var(--baseColor);
+  width: 20px;
+  height: 20px;
+  fill: #cbd5e1;
 }
 
-input {
-  background-image: none;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  outline: 0;
-  padding: 0;
-  transition: background-color 0.3s;
-}
-input[type='submit'] {
-  cursor: pointer;
-}
-
+/* Login form */
 .form {
   display: grid;
-  gap: var(--formGap);
-}
-.form input[type='text'],
-.form input[type='password'],
-.form input[type='submit'] {
-  inline-size: 100%;
-}
-.form__field {
-  display: flex;
-}
-.form__input {
-  flex: 1;
+  gap: 10px;
 }
 
-.login {
-  color: var(--loginColor);
+.form__field {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: center;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--input);
 }
-.login label,
-.login input[type='text'],
-.login input[type='password'],
-.login input[type='submit'] {
-  border-radius: var(--loginBorderRadius);
-  padding: 1rem;
+.form__field > label {
+  height: var(--field-h);
+  display: grid;
+  place-items: center;
+  background: var(--label);
 }
-.login label {
-  background-color: var(--loginLabelBackgroundColor);
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  padding-inline: 1.25rem;
+.form__input {
+  height: var(--field-h);
+  width: 100%;
+  border: 0;
+  background: var(--input);
+  color: #fff;
+  padding: 0 14px;
+  font-size: 15px;
+  transition: background 0.2s, box-shadow 0.2s;
 }
-.login input[type='text'],
-.login input[type='password'] {
-  background-color: var(--loginInputBackgroundColor);
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+.form__input:hover,
+.form__input:focus {
+  background: var(--input-hover);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.06) inset;
+  outline: 0;
 }
-.login input[type='text']:hover,
-.login input[type='text']:focus,
-.login input[type='password']:hover,
-.login input[type='password']:focus {
-  background-color: var(--loginInputHoverBackgroundColor);
-}
-.login input[type='submit'] {
-  background-color: var(--loginSubmitBackgroundColor);
-  color: var(--loginSubmitColor);
-  font-weight: 700;
+
+/* Buttons */
+.btn {
+  height: var(--field-h);
+  border: 0;
+  border-radius: var(--radius);
+  font-weight: 800;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
 }
-.login input[type='submit']:hover,
-.login input[type='submit']:focus {
-  background-color: var(--loginSubmitHoverBackgroundColor);
+.btn--primary {
+  background: var(--primary);
+  color: #fff;
+}
+.btn--primary:hover {
+  background: var(--primary-hover);
+}
+.btn--secondary {
+  background: var(--secondary);
+  color: #fff;
+}
+.btn--secondary:hover {
+  background: var(--secondary-hover);
+}
+.btn--ghost {
+  background: transparent;
+  color: #cbd5e1;
+  border: 1px solid #3b4148;
+}
+.btn--ghost:hover {
+  border-color: #525c66;
+  color: #fff;
+}
+
+/* Messages */
+.msg {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 4px;
+}
+.msg--err {
+  color: #ef4444;
+}
+.msg--ok {
+  color: #22c55e;
+}
+
+/* Reset panel inside card */
+.link {
+  display: block;
+  text-align: center;
+  margin: 4px 0 10px;
+  color: #e5e7eb;
+}
+.link:hover {
+  text-decoration: underline;
+}
+
+.panel {
+  background: #12171a;
+  border-radius: 12px;
+  padding: 14px;
+  margin: 8px 0 4px;
+  border: 1px solid #232a2f;
+}
+.panel__title {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.field {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: var(--input);
+}
+.field__label {
+  height: var(--field-h);
+  display: grid;
+  place-items: center;
+  background: var(--label);
+}
+.field__input {
+  height: var(--field-h);
+  width: 100%;
+  padding: 0 14px;
+  background: var(--input);
+  color: #fff;
+  border: 0;
+}
+.field__input:hover,
+.field__input:focus {
+  background: var(--input-hover);
+  outline: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
 }

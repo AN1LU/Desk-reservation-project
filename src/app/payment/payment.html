@@ -10,10 +10,6 @@
 			<li *ngFor="let f of membership.features">{{ f }}</li>
 		</ul>
 
-		<div *ngIf="membership.name === 'Básica' || membership.name === 'Premium'">
-			<label for="userCount">Número de usuarios:</label>
-			<input id="userCount" type="number" min="1" placeholder="Ingresa el número de usuarios" />
-		</div>
 		<div *ngIf="membership.name === 'Corporativa'">
 			<label for="groupName">Nombre del grupo:</label>
 			<input id="groupName" type="text" placeholder="Ingresa el nombre del grupo" />
@@ -22,6 +18,9 @@
 		<button class="btn" (click)="pagar()">Pagar</button>
 		<div *ngIf="successMessage" class="success-message">
 			{{ successMessage }}
+		</div>
+		<div *ngIf="errorMessage" class="error-message" style="color: #d33; margin-top:0.5rem">
+			{{ errorMessage }}
 		</div>
 	</div>
 	<div *ngIf="!membership">

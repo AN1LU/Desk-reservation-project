@@ -1,4 +1,3 @@
-// src/app/register/register.ts
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
@@ -29,33 +28,20 @@ export class RegisterComponent {
     const username = (form.querySelector('#reg__username') as HTMLInputElement).value.trim();
 
     if (!email || !password) {
-      this.errorMsg = 'Correo y contraseña son obligatorios';
+      this.errorMsg = 'Correo y contraseña son obligatorios.';
       return;
     }
     if (password.length < 6) {
-      this.errorMsg = 'La contraseña debe tener al menos 6 caracteres';
+      this.errorMsg = 'La contraseña debe tener al menos 6 caracteres.';
       return;
     }
 
     this.loading = true;
     try {
       await this.auth.signUp(email, password, username || undefined);
-
-      // Si tu proyecto usa confirmación por correo:
-      this.successMsg = 'Cuenta creada. Revisa tu correo para confirmar.';
-      // Si no usas confirmación y quieres entrar directo, podrías hacer login aquí.
-      // await this.auth.signIn(email, password);
-      // await this.router.navigate(['/reservations']);
+      this.successMsg = 'Cuenta creada. Revisa tu correo para confirmar tu cuenta.';
     } catch (err: any) {
-      const msg = String(err?.message || err);
-
-      if (msg.includes('usuarios_email_key') || msg.includes('duplicate key value')) {
-        this.errorMsg = 'Ese correo ya está registrado.';
-      } else if (msg.toLowerCase().includes('user already registered')) {
-        this.errorMsg = 'Ese correo ya está registrado en Auth.';
-      } else {
-        this.errorMsg = 'No se pudo registrar: ' + msg;
-      }
+      this.errorMsg = this.auth.errorToMessage(err);
     } finally {
       this.loading = false;
     }

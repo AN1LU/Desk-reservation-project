@@ -16,7 +16,8 @@
 
   display: block;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1976d2 0%, #ea4c88 100%);
+  /* Fondo: imagen fija (igual que Home) y color base */
+  background: url('/assets/memberships.png') center center/cover no-repeat fixed, var(--bodyBackgroundColor);
   color: #eee;
   font-family: 'Open Sans', sans-serif;
   font-size: 0.875rem;
@@ -29,7 +30,8 @@
   align-items: center;
   min-height: 100vh;
   justify-content: flex-start;
-  background: transparent;
+  /* Capa oscura sobre la imagen para mejorar la legibilidad (igual que Home) */
+  background: rgba(44, 51, 56, 0.80);
   padding-top: 3rem;
 }
 
@@ -125,6 +127,17 @@
   background: #d44179;
   color: #fff;
   transform: scale(1.05);
+}
+
+.active-note {
+  max-width: 720px;
+  margin: 0 auto 1rem auto;
+  background: rgba(0,0,0,0.35);
+  color: #ffefc6;
+  padding: 0.6rem 1rem;
+  border-radius: 0.4rem;
+  text-align: center;
+  font-weight: 700;
 }
 
 .features {

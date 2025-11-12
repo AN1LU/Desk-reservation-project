@@ -41,7 +41,8 @@
 
 	display: block;
 	min-height: 100vh;
-	background: linear-gradient(135deg, #1976d2 0%, #ea4c88 100%);
+	/* Use payments background image with dark fallback color */
+	background: url('/assets/payments.png') center center/cover no-repeat fixed, var(--bodyBackgroundColor);
 	color: #eee;
 	font-family: 'Open Sans', sans-serif;
 	font-size: 0.875rem;
@@ -54,7 +55,8 @@
 	align-items: center;
 	min-height: 100vh;
 	justify-content: flex-start;
-	background: transparent;
+	/* overlay to darken the background image and improve contrast */
+	background: rgba(44, 51, 56, 0.80);
 	padding-top: 3rem;
 }
 
@@ -118,6 +120,5 @@
 	border-radius: 8px;
 	padding: 1rem;
 	text-align: center;
-}
 	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }

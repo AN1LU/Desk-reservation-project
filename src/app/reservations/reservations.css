@@ -6,12 +6,14 @@
   --bodyFontFamily: 'Open Sans', sans-serif;
   --bodyFontSize: 0.875rem;
   --bodyLineHeight: 1.5;
-  --cardBackground: #3b4148;
+  --cardBackground: rgba(59,65,72,0.95);
   --cardBorderRadius: 0.5rem;
   --cardShadow: 0 2px 8px rgba(0,0,0,0.12);
   display: block;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1976d2 0%, #ea4c88 100%);
+  /* Background image for the reservations view. Place the file at public/assets/reservaciones.png */
+  /* Use the image as the page background (no overlay here) - the dark overlay is applied on the container below */
+  background: url('/assets/reservaciones.png') center center/cover no-repeat fixed, var(--bodyBackgroundColor);
   color: #eee;
   font-family: var(--bodyFontFamily);
   font-size: var(--bodyFontSize);
@@ -23,8 +25,9 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  justify-content: center;
-  background: transparent;
+  justify-content: flex-start;
+  background: rgba(44, 51, 56, 0.80);
+  padding-top: 15rem; /* antes 3rem → deja espacio para el botón fijo */
 }
 
 .reservations-card {
@@ -38,9 +41,207 @@
   text-align: center;
 }
 
+.reservations-main {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1100px;
+  padding: 2rem;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.reservations-image-card {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--cardBorderRadius);
+  box-shadow: var(--cardShadow);
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1000px;
+  min-height: 500px;
+  position: relative; /* enable absolute overlay positioning */
+}
+
+.reservations-hero-image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  object-fit: contain;  /* ‘contain’ muestra todo, sin deformar */
+}
+
+/* Desk grid styles */
+.desk-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+/* Overlay placed on top of the image */
+.image-overlay {
+  position: absolute;
+  inset: 0; /* cover the whole image card */
+  z-index: 50;
+  pointer-events: auto;
+}
+
+.overlay-desk {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.overlay-desk .desk-circle {
+  width: 52px;
+  height: 52px;
+}
+
+.overlay-desk:hover .desk-circle {
+  transform: scale(1.05);
+}
+
+.overlay-desk[draggable="false"] { /* no-op used for clarity */ }
+
+/* When in edit mode make circles more visible and indicate draggable */
+.reservations-card .btn { background: #28a745; color: #fff; border: none; padding: .5rem 0.9rem; font-weight:700; border-radius:4px }
+.overlay-desk { touch-action: none; }
+.overlay-desk .desk-circle { transition: transform .12s ease, outline .12s ease; }
+.overlay-desk.selected .desk-circle { outline: 4px solid rgba(40,167,69,0.22); }
+
+.desk {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.desk-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(120,120,120,0.95); /* default neutral, overridden by state classes */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+/* state styles */
+.overlay-desk.available .desk-circle { background: rgba(40,167,69,0.95); }
+.overlay-desk.reserved { cursor: not-allowed; }
+.overlay-desk.reserved .desk-circle { background: #dc3545; /* red */ }
+.overlay-desk.selected .desk-circle { outline: 4px solid rgba(40,167,69,0.15); transform: translateY(-4px) scale(1.03); }
+
+.desk-label {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+.desk.selected .desk-circle {
+  outline: 4px solid rgba(40,167,69,0.15);
+  transform: translateY(-4px) scale(1.03);
+}
+
+@media (max-width: 600px) {
+  .desk-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .desk-circle { width: 46px; height: 46px; }
+}
+
 .reservations-title {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
   letter-spacing: 1px;
+}
+
+.reservations-image-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.reservations-image {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  object-fit: cover;
+}
+
+.back-link {
+  position: fixed;           /* Siempre visible arriba a la izquierda */
+  top: 1rem;
+  left: 1rem;
+  background: #ea4c88;
+  color: #fff;
+  border: none;
+  border-radius: 0.3rem;
+  padding: 0.8rem 1.7rem;
+  font-weight: 800;
+  font-size: 1.1em;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  z-index: 1000;             /* se asegura de estar por encima de todo */
+}
+
+.back-link:hover {
+  background: #d44179;
+  transform: scale(1.05);
+}
+/* Responsive: stack card and image on small screens */
+@media (max-width: 900px) {
+  .reservations-main {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .reservations-image-card {
+    width: 100%;
+  }
+}
+
+/* Floating edit controls */
+.edit-floating {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1100;
+}
+.edit-floating .btn { padding: 0.8rem 1.1rem; font-size: 1rem }
+
+/* Make floating controls very visible (debug / ensure not hidden) */
+.edit-floating {
+  background: rgba(255, 235, 59, 0.95); /* yellow */
+  color: #000;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  align-items: center;
+}
+.edit-floating .btn { background: #28a745; color: #fff; font-weight: 800; border: none; padding: 0.5rem 0.75rem; border-radius: 4px }
+
+.edit-floating .btn:hover,
+.reservations-card .btn:hover {
+  background: #218838;
 }

@@ -1,7 +1,26 @@
 <div class="reservations-container">
   <a routerLink="/home" class="back-link">&larr; Volver a inicio</a>
 
-  <!-- Floating edit controls (always visible) -->
+  <!-- Popup de éxito -->
+  <div class="reservation-modal-backdrop" *ngIf="showSuccessModal">
+    <div class="reservation-modal">
+      <h3>Reservación generada</h3>
+      <p>Tu reservación ha sido creada correctamente.</p>
+      <p>
+        Puedes ver más información en la sección
+        <strong>Mi perfil</strong>.
+      </p>
+
+      <div class="reservation-modal-actions">
+        <button (click)="closeSuccessModal()">Cerrar</button>
+        <a routerLink="/profile" class="modal-profile-link" (click)="closeSuccessModal()">
+          Ir a mi perfil
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating edit controls (si los usas) -->
   <div class="edit-floating">
     <!-- <button class="btn" (click)="toggleEditMode()">{{ editMode ? 'Salir edición' : 'Editar posiciones' }}</button> -->
     <!-- <button class="btn" *ngIf="editMode" (click)="savePositions()">Guardar posiciones</button> -->
@@ -12,40 +31,45 @@
     <div class="reservations-card">
       <h2 class="reservations-title">Crear reserva</h2>
 
-      <div style="display:flex; gap:.5rem; justify-content:center; margin-bottom: .75rem">
-        <!-- <button class="btn" (click)="toggleEditMode()">{{ editMode ? 'Salir edición' : 'Editar posiciones' }}</button> -->
-        <!-- <button class="btn" *ngIf="editMode" (click)="savePositions()">Guardar posiciones</button> -->
+      <div style="display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 0.75rem">
+        <!-- botones de edición si los quieres -->
       </div>
 
-      <!-- Selector visual de escritorios: se muestra sobre la imagen (se moverá al overlay) -->
-      <!-- (Overlay rendered in the image card) -->
-
-      <div style="text-align:left; margin-top:1rem">
-  <label>Fecha y hora inicio</label>
-  <input type="datetime-local" [(ngModel)]="fechaInicio" (ngModelChange)="onDateChange()" />
+      <div style="text-align: left; margin-top: 1rem">
+        <label>Fecha y hora inicio</label>
+        <input type="datetime-local" [(ngModel)]="fechaInicio" (ngModelChange)="onDateChange()" />
       </div>
 
-      <div style="text-align:left; margin-top:0.5rem">
-  <label>Fecha y hora fin</label>
-  <input type="datetime-local" [(ngModel)]="fechaFin" (ngModelChange)="onDateChange()" />
+      <div style="text-align: left; margin-top: 0.5rem">
+        <label>Fecha y hora fin</label>
+        <input type="datetime-local" [(ngModel)]="fechaFin" (ngModelChange)="onDateChange()" />
       </div>
 
-      <div style="text-align:left; margin-top:0.5rem">
+      <div style="text-align: left; margin-top: 0.5rem">
         <label>ID Escritorio (opcional)</label>
         <input type="number" [(ngModel)]="idEscritorio" />
       </div>
 
-      <div style="text-align:left; margin-top:0.5rem">
+      <div style="text-align: left; margin-top: 0.5rem">
         <!-- Código QR eliminado temporalmente -->
       </div>
 
-      <div style="margin-top:1rem">
-        <button (click)="crearReserva()" [disabled]="loading || (userReservationsCount >= userReservationsLimit)">
-          {{ loading ? 'Creando...' : (userReservationsCount >= userReservationsLimit ? ('Límite alcanzado (' + userReservationsCount + '/' + userReservationsLimit + ')') : 'Crear reserva') }}
+      <div style="margin-top: 1rem">
+        <button
+          (click)="crearReserva()"
+          [disabled]="loading || userReservationsCount >= userReservationsLimit"
+        >
+          {{
+            loading
+              ? 'Creando...'
+              : userReservationsCount >= userReservationsLimit
+              ? 'Límite alcanzado (' + userReservationsCount + '/' + userReservationsLimit + ')'
+              : 'Crear reserva'
+          }}
         </button>
       </div>
 
-      <div style="margin-top:1rem; color: #ffd;">
+      <div style="margin-top: 1rem; color: #ffd">
         {{ message }}
       </div>
     </div>
@@ -54,7 +78,6 @@
     <div class="reservations-image-card">
       <img src="/assets/escritorios.png" alt="Escritorios" class="reservations-hero-image" />
 
-      <!-- Overlay: desk circles absolutely positioned over the image -->
       <div class="image-overlay" (click)="onOverlayClick($event)">
         <div
           class="overlay-desk"
@@ -66,11 +89,19 @@
           (mousedown)="startDrag($event, d)"
           role="button"
           tabindex="0"
-            (keydown.enter)="!editMode && selectDesk(d)"
+          (keydown.enter)="!editMode && selectDesk(d)"
           [ngStyle]="getDeskStyle(d)"
-          title="{{ d.nombre || ('Escritorio ' + d.id) }}{{ d.isReserved ? ' — Ocupado ' : '' }}{{ d.isReserved ? (d.reservedFrom | date:'short') : '' }}{{ d.isReserved ? ' → ' : '' }}{{ d.isReserved ? (d.reservedTo | date:'short') : '' }}"
+          [title]="
+            (d.nombre || 'Escritorio ' + d.id) +
+            (d.isReserved ? ' — Ocupado ' : '') +
+            (d.isReserved ? (d.reservedFrom | date : 'short') : '') +
+            (d.isReserved ? ' → ' : '') +
+            (d.isReserved ? (d.reservedTo | date : 'short') : '')
+          "
         >
-          <div class="desk-circle">{{ d.id }}</div>
+          <div class="desk-circle">
+            {{ d.id }}
+          </div>
         </div>
       </div>
     </div>

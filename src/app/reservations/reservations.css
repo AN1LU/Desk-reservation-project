@@ -1,4 +1,4 @@
-/* Estilos para la vista de reservaciones, siguiendo el diseño del resto de la app */
+/* Estilos para la vista de reservaciones */
 :host {
   --baseColor: #606468;
   --bodyBackgroundColor: #2c3338;
@@ -6,14 +6,13 @@
   --bodyFontFamily: 'Open Sans', sans-serif;
   --bodyFontSize: 0.875rem;
   --bodyLineHeight: 1.5;
-  --cardBackground: rgba(59,65,72,0.95);
+  --cardBackground: rgba(59, 65, 72, 0.95);
   --cardBorderRadius: 0.5rem;
-  --cardShadow: 0 2px 8px rgba(0,0,0,0.12);
+  --cardShadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   display: block;
   min-height: 100vh;
-  /* Background image for the reservations view. Place the file at public/assets/reservaciones.png */
-  /* Use the image as the page background (no overlay here) - the dark overlay is applied on the container below */
-  background: url('/assets/reservaciones.png') center center/cover no-repeat fixed, var(--bodyBackgroundColor);
+  background: url('/assets/reservaciones.png') center center / cover no-repeat fixed,
+    var(--bodyBackgroundColor);
   color: #eee;
   font-family: var(--bodyFontFamily);
   font-size: var(--bodyFontSize);
@@ -26,8 +25,19 @@
   align-items: center;
   min-height: 100vh;
   justify-content: flex-start;
-  background: rgba(44, 51, 56, 0.80);
-  padding-top: 15rem; /* antes 3rem → deja espacio para el botón fijo */
+  background: rgba(44, 51, 56, 0.8);
+  padding-top: 15rem;
+}
+
+.reservations-main {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 1400px;
+  padding: 2rem;
+  box-sizing: border-box;
+  justify-content: center;
 }
 
 .reservations-card {
@@ -41,20 +51,9 @@
   text-align: center;
 }
 
-.reservations-main {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 1100px;
-  padding: 2rem;
-  box-sizing: border-box;
-  justify-content: center;
-}
-
 .reservations-image-card {
   flex: 1;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: var(--cardBorderRadius);
   box-shadow: var(--cardShadow);
   padding: 0.5rem;
@@ -63,28 +62,20 @@
   justify-content: center;
   min-width: 1000px;
   min-height: 500px;
-  position: relative; /* enable absolute overlay positioning */
+  position: relative;
 }
 
 .reservations-hero-image {
   width: 100%;
   height: auto;
   border-radius: 0.5rem;
-  object-fit: contain;  /* ‘contain’ muestra todo, sin deformar */
+  object-fit: contain;
 }
 
-/* Desk grid styles */
-.desk-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.6rem;
-  margin-bottom: 1rem;
-}
-
-/* Overlay placed on top of the image */
+/* Overlay */
 .image-overlay {
   position: absolute;
-  inset: 0; /* cover the whole image card */
+  inset: 0;
   z-index: 50;
   pointer-events: auto;
 }
@@ -107,13 +98,24 @@
   transform: scale(1.05);
 }
 
-.overlay-desk[draggable="false"] { /* no-op used for clarity */ }
+.reservations-card .btn {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  font-weight: 700;
+  border-radius: 4px;
+}
 
-/* When in edit mode make circles more visible and indicate draggable */
-.reservations-card .btn { background: #28a745; color: #fff; border: none; padding: .5rem 0.9rem; font-weight:700; border-radius:4px }
-.overlay-desk { touch-action: none; }
-.overlay-desk .desk-circle { transition: transform .12s ease, outline .12s ease; }
-.overlay-desk.selected .desk-circle { outline: 4px solid rgba(40,167,69,0.22); }
+.overlay-desk {
+  touch-action: none;
+}
+.overlay-desk .desk-circle {
+  transition: transform 0.12s ease, outline 0.12s ease;
+}
+.overlay-desk.selected .desk-circle {
+  outline: 4px solid rgba(40, 167, 69, 0.22);
+}
 
 .desk {
   display: flex;
@@ -128,20 +130,29 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: rgba(120,120,120,0.95); /* default neutral, overridden by state classes */
+  background: rgba(120, 120, 120, 0.95);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-/* state styles */
-.overlay-desk.available .desk-circle { background: rgba(40,167,69,0.95); }
-.overlay-desk.reserved { cursor: not-allowed; }
-.overlay-desk.reserved .desk-circle { background: #dc3545; /* red */ }
-.overlay-desk.selected .desk-circle { outline: 4px solid rgba(40,167,69,0.15); transform: translateY(-4px) scale(1.03); }
+/* estados */
+.overlay-desk.available .desk-circle {
+  background: rgba(40, 167, 69, 0.95);
+}
+.overlay-desk.reserved {
+  cursor: not-allowed;
+}
+.overlay-desk.reserved .desk-circle {
+  background: #dc3545;
+}
+.overlay-desk.selected .desk-circle {
+  outline: 4px solid rgba(40, 167, 69, 0.15);
+  transform: translateY(-4px) scale(1.03);
+}
 
 .desk-label {
   margin-top: 0.35rem;
@@ -150,17 +161,11 @@
 }
 
 .desk.selected .desk-circle {
-  outline: 4px solid rgba(40,167,69,0.15);
+  outline: 4px solid rgba(40, 167, 69, 0.15);
   transform: translateY(-4px) scale(1.03);
 }
 
-@media (max-width: 600px) {
-  .desk-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .desk-circle { width: 46px; height: 46px; }
-}
-
+/* título, imagen auxiliar, etc. */
 .reservations-title {
   font-size: 2rem;
   font-weight: 700;
@@ -179,12 +184,13 @@
   max-width: 320px;
   height: auto;
   border-radius: 0.5rem;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
   object-fit: cover;
 }
 
+/* volver */
 .back-link {
-  position: fixed;           /* Siempre visible arriba a la izquierda */
+  position: fixed;
   top: 1rem;
   left: 1rem;
   background: #ea4c88;
@@ -196,30 +202,19 @@
   font-size: 1.1em;
   text-decoration: none;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   text-transform: uppercase;
   letter-spacing: 1px;
   transition: background 0.2s, color 0.2s, transform 0.2s;
-  z-index: 1000;             /* se asegura de estar por encima de todo */
+  z-index: 1000;
 }
 
 .back-link:hover {
   background: #d44179;
   transform: scale(1.05);
 }
-/* Responsive: stack card and image on small screens */
-@media (max-width: 900px) {
-  .reservations-main {
-    flex-direction: column;
-    padding: 1rem;
-  }
 
-  .reservations-image-card {
-    width: 100%;
-  }
-}
-
-/* Floating edit controls */
+/* controles flotantes */
 .edit-floating {
   position: fixed;
   top: 1rem;
@@ -227,21 +222,227 @@
   display: flex;
   gap: 0.5rem;
   z-index: 1100;
-}
-.edit-floating .btn { padding: 0.8rem 1.1rem; font-size: 1rem }
-
-/* Make floating controls very visible (debug / ensure not hidden) */
-.edit-floating {
-  background: rgba(255, 235, 59, 0.95); /* yellow */
+  background: rgba(255, 235, 59, 0.95);
   color: #000;
   padding: 0.25rem;
   border-radius: 0.5rem;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
   align-items: center;
 }
-.edit-floating .btn { background: #28a745; color: #fff; font-weight: 800; border: none; padding: 0.5rem 0.75rem; border-radius: 4px }
+
+.edit-floating .btn {
+  padding: 0.8rem 1.1rem;
+  font-size: 1rem;
+  background: #28a745;
+  color: #fff;
+  font-weight: 800;
+  border: none;
+  border-radius: 4px;
+}
 
 .edit-floating .btn:hover,
 .reservations-card .btn:hover {
   background: #218838;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+
+/* <= 1300px */
+@media (max-width: 1300px) {
+  .reservations-main {
+    max-width: 100%;
+  }
+
+  .reservations-image-card {
+    min-width: 0;
+    min-height: 0;
+    max-width: 1000px;
+  }
+}
+
+/* <= 900px */
+@media (max-width: 900px) {
+  .reservations-container {
+    padding-top: 7rem;
+  }
+
+  .reservations-main {
+    flex-direction: column;
+    padding: 1rem;
+    align-items: stretch;
+  }
+
+  .reservations-card {
+    max-width: 26rem;
+    width: 100%;
+    margin: 0 auto 1.5rem auto;
+  }
+
+  .reservations-image-card {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    min-width: 0;
+    min-height: 0;
+  }
+
+  .reservations-hero-image {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    object-fit: contain;
+  }
+
+  .desk-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+}
+
+/* <= 768px */
+@media (max-width: 768px) {
+  .reservations-container {
+    padding-top: 5rem;
+  }
+
+  .reservations-main {
+    padding: 0.75rem;
+  }
+
+  .reservations-card {
+    padding: 1.8rem 1.3rem;
+    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 0 1rem 0;
+  }
+
+  .desk-circle {
+    width: 26px;
+    height: 26px;
+    font-size: 0.7rem;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* <= 600px */
+@media (max-width: 600px) {
+  .desk-circle {
+    width: 20px;
+    height: 20px;
+    font-size: 0.55rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Laptops pequeñas <= 1366px */
+@media (max-width: 1366px) {
+  .reservations-image-card .overlay-desk .desk-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Tablets / móviles grandes <= 900px */
+@media (max-width: 900px) {
+  .reservations-image-card .overlay-desk .desk-circle {
+    width: 26px;
+    height: 26px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Celulares <= 600px */
+@media (max-width: 600px) {
+  .reservations-image-card .overlay-desk .desk-circle {
+    width: 18px;
+    height: 18px;
+    font-size: 0.55rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* ===================================
+   Popup de reservación generada
+   =================================== */
+
+.reservation-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.reservation-modal {
+  background: #2f343a;
+  border-radius: 0.75rem;
+  padding: 1.8rem 1.7rem;
+  max-width: 360px;
+  width: 90%;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.reservation-modal h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.reservation-modal p {
+  margin: 0.15rem 0;
+  font-size: 0.95rem;
+}
+
+.reservation-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
+
+.reservation-modal-actions button {
+  background: #ea4c88;
+  color: #fff;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.55rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.reservation-modal-actions button:hover {
+  background: #d44179;
+  transform: translateY(-1px);
+}
+
+.modal-profile-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.2rem;
+  border-radius: 0.4rem;
+  border: 1px solid #ea4c88;
+  color: #ea4c88;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.modal-profile-link:hover {
+  background: #ea4c88;
+  color: #fff;
+  transform: translateY(-1px);
 }

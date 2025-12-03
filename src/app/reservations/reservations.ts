@@ -192,6 +192,33 @@ export class ReservationsComponent implements OnInit, OnDestroy {
       console.warn('computeReservationLimit error', e);
     }
   }
+  
+  async enviarCorreoReserva(email:string,espacioId: number, horaInicio: string, horaFin: string) {
+    const { data, error } = await supabase.functions.invoke('send-email-function', {
+    body: {
+      to: email,
+      subject: "Confirmación de Reserva",
+      message: `
+      <h2>Confirmación de tu reserva</h2>
+      <p>Tu reserva ha sido generada con éxito.</p>
+
+      <p><strong>Escritorio:</strong> ${espacioId}</p>
+      <p><strong>Hora de inicio:</strong> ${horaInicio}</p>
+      <p><strong>Hora de fin:</strong> ${horaFin}</p>
+
+      <p>Gracias por reservar.</p>
+      <p>- Desk reservation system</p>
+    `,
+    }
+  });
+
+  if (error) {
+    console.error("ERROR INVOCANDO FUNCIÓN:", error);
+    throw error;
+  }
+
+  console.log("Correo enviado:", data);
+  }
 
   ngOnDestroy(): void {
     if (this.refreshTimer) {
@@ -469,9 +496,16 @@ export class ReservationsComponent implements OnInit, OnDestroy {
         this.message = error.message ?? 'Error creando la reserva.';
       } else {
         const id = (data as any)?.[0]?.id_reserva ?? (data as any)?.[0]?.id ?? null;
-
+        
         this.lastReservationId = id ? Number(id) : null;
-
+        // === LLAMAR EDGE FUNCTION ===
+        const email = currentUser.email ?? '';
+        await this.enviarCorreoReserva(
+          email, 
+          espacioId,
+          this.fechaInicio,
+          this.fechaFin
+        );
         // mensaje simple y popup
         this.message = '';
         this.showSuccessModal = true;

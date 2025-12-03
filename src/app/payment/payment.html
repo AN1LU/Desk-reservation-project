@@ -1,11 +1,13 @@
-
 <a routerLink="/memberships" class="back-link">&larr; VOLVER A MEMBRESÍAS</a>
+
 <div class="payment-container">
 	<div class="payment-card" *ngIf="membership">
 		<h2 class="payment-title">Pago de Membresía</h2>
+
 		<h3>{{ membership.name }}</h3>
 		<p class="price"><strong>{{ membership.price }}</strong></p>
 		<p><strong>Descripción:</strong> {{ membership.description }}</p>
+
 		<ul>
 			<li *ngFor="let f of membership.features">{{ f }}</li>
 		</ul>
@@ -15,17 +17,41 @@
 			<input id="groupName" type="text" placeholder="Ingresa el nombre del grupo" />
 		</div>
 
-		<button class="btn" (click)="pagar()">Pagar</button>
-		<div *ngIf="successMessage" class="success-message">
-			{{ successMessage }}
-		</div>
-		<div *ngIf="errorMessage" class="error-message" style="color: #d33; margin-top:0.5rem">
-			{{ errorMessage }}
-		</div>
+		<!-- BOTÓN PARA ABRIR POPUP -->
+		<button class="btn" (click)="abrirPopup()">Pagar</button>
+
+		<div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+		<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 	</div>
+
 	<div *ngIf="!membership">
 		<div class="payment-card">
-			<p>No se recibió información de la membresía. Intenta regresar y seleccionar una opción.</p>
+			<p>No se recibió información de la membresía.</p>
 		</div>
 	</div>
 </div>
+
+	<!-- 🌟 MODAL (POPUP) -->
+<div class="modal-overlay" *ngIf="mostrarPopup">
+	<div class="modal-card payment-modal">
+		<h2>Datos de pago</h2>
+
+		<label>Nombre del titular:</label>
+		<input [(ngModel)]="card.nombre" type="text" placeholder="Ej. Juan Pérez" />
+
+		<label>Número de tarjeta:</label>
+		<input [(ngModel)]="card.numero" type="text" maxlength="16" placeholder="1111222233334444" />
+
+		<label>Fecha de expiración:</label>
+		<input [(ngModel)]="card.exp" type="month" />
+
+		<label>CVV:</label>
+		<input [(ngModel)]="card.cvv" type="password" maxlength="4" placeholder="123" />
+
+		<div class="modal-buttons">
+			<button class="btn" (click)="confirmarPago()">Realizar pago</button>
+			<button class="btn cancel" (click)="cerrarPopup()">Cancelar</button>
+		</div>
+	</div>
+</div>
+

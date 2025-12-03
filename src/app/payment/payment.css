@@ -20,10 +20,12 @@
 	background: #d44179;
 	transform: translateY(-2px) scale(1.03);
 }
+
 .payment-container {
 	position: relative;
 }
-/* Variables y tipografía locales al componente */
+
+/* VARIABLES LOCALES DEL COMPONENTE */
 :host {
 	--baseColor: #606468;
 	--bodyBackgroundColor: #2c3338;
@@ -41,7 +43,6 @@
 
 	display: block;
 	min-height: 100vh;
-	/* Use payments background image with dark fallback color */
 	background: url('/assets/payments.png') center center/cover no-repeat fixed, var(--bodyBackgroundColor);
 	color: #eee;
 	font-family: 'Open Sans', sans-serif;
@@ -55,7 +56,6 @@
 	align-items: center;
 	min-height: 100vh;
 	justify-content: flex-start;
-	/* overlay to darken the background image and improve contrast */
 	background: rgba(44, 51, 56, 0.80);
 	padding-top: 3rem;
 }
@@ -75,6 +75,7 @@
 	justify-content: space-between;
 	align-items: center;
 }
+
 .payment-card:hover {
 	background: #434a52;
 	transform: translateY(-6px) scale(1.03);
@@ -91,7 +92,7 @@
 }
 
 .price {
-	color: #ea4c88;
+	color: var(--priceColor);
 	font-size: 1.4em;
 	font-weight: 700;
 	margin: 0.7rem 0 0.3rem 0;
@@ -122,3 +123,125 @@
 	text-align: center;
 	box-shadow: 0 1px 4px rgba(0,0,0,0.06);
 }
+
+/* ------------------------------- */
+/* --------- POPUP FORM ---------- */
+/* ------------------------------- */
+
+.payment-modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.65);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 999;
+	backdrop-filter: blur(3px);
+	animation: fadeIn 0.3s ease;
+}
+
+.payment-modal {
+	background: rgba(59, 65, 72, 0.97);
+	padding: 2rem;
+	border-radius: 0.75rem;
+	width: 90%;
+	max-width: 380px;
+	box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+	animation: popIn 0.25s ease;
+}
+
+.payment-modal h3 {
+	color: #fff;
+	font-size: 1.4rem;
+	margin-bottom: 1rem;
+	font-weight: 700;
+	text-align: center;
+}
+
+.payment-modal label {
+	color: #ddd;
+	font-weight: 600;
+	font-size: 0.9rem;
+	margin-top: 0.8rem;
+	display: block;
+	text-align: left;
+}
+
+.payment-modal input {
+	width: 100%;
+	padding: 0.65rem;
+	margin-top: 0.3rem;
+	border-radius: 0.35rem;
+	border: none;
+	box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+	font-size: 0.95rem;
+}
+
+.modal-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1.5rem;
+}
+
+.modal-buttons .btn-cancel {
+	background: #777;
+}
+.modal-buttons .btn-cancel:hover {
+	background: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
+@keyframes popIn {
+	from { transform: scale(0.85); opacity: 0;}
+	to { transform: scale(1); opacity: 1;}
+}
+/* Fondo oscuro de modal */
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 9999;
+}
+
+/* Recuadro del formulario */
+.payment-modal {
+	padding: 30px;
+	border-radius: 12px;
+	width: 400px;
+	max-width: 90%;
+}
+
+/* Inputs ordenados */
+.payment-modal input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 12px;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+}
+
+/* Botones */
+.modal-buttons {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 10px;
+}
+
+.cancel {
+	background: #ccc !important;
+	color: #000 !important;
+}
+

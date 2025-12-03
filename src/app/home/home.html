@@ -1,0 +1,25 @@
+<div class="home-container">
+  <div class="home-card">
+    <h1>Bienvenido al sistema de reservaciones</h1>
+    
+    <div *ngIf="loading" class="loading-message">Verificando membresía...</div>
+    
+    <nav class="home-nav" *ngIf="!loading">
+      <a routerLink="/memberships" class="home-link">Membresías</a>
+      <a (click)="goToReservations($event)" class="home-link" [class.disabled]="!hasMembership">Reservaciones</a>
+      <a routerLink="/profile" class="home-link">Mi Perfil</a>
+      <a *ngIf="hasCorporateMembership" (click)="goToGroupManagement()" class="home-link home-link-corporate">
+        👥 Administrar Grupo
+      </a>
+    </nav>
+    
+    <div *ngIf="errorMessage" class="error-message">
+      ⚠️ {{ errorMessage }}
+    </div>
+    
+    <section class="home-info" *ngIf="!loading">
+      <p>Selecciona una opción para comenzar.</p>
+      <p *ngIf="!hasMembership" class="warning-info">Para realizar reservaciones necesitas adquirir una membresía primero.</p>
+    </section>
+  </div>
+</div>

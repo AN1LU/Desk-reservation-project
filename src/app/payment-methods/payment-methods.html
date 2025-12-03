@@ -1,0 +1,122 @@
+<div class="payment-methods-container">
+  <a routerLink="/myprofile" class="back-link">&larr; Volver a perfil</a>
+  <h2 class="page-title">Mis Formas de Pago</h2>
+
+  <div class="content-card">
+    <div *ngIf="loading && paymentMethods.length === 0" class="loading-message">
+      Cargando...
+    </div>
+
+    <!-- Mensajes -->
+    <div *ngIf="message" class="success-message">{{ message }}</div>
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+    <!-- Lista de tarjetas guardadas -->
+    <div *ngIf="!loading && paymentMethods.length > 0" class="cards-list">
+      <div *ngFor="let card of paymentMethods" class="card-item" [class.default-card]="card.is_default">
+        <div class="card-header">
+          <div class="card-icon-text">
+            <span class="card-type-icon">{{ getCardIcon(card.tipo_tarjeta) }}</span>
+            <span *ngIf="card.is_default" class="default-badge">Predeterminada</span>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <div class="card-number">**** **** **** {{ card.ultimos_4_digitos }}</div>
+          <div class="card-info">
+            <span class="card-holder">{{ card.nombre_titular }}</span>
+            <span class="card-expiry">Exp: {{ card.mes_expiracion }}/{{ card.anio_expiracion }}</span>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button *ngIf="!card.is_default" class="btn-set-default" (click)="setDefault(card.id)" [disabled]="loading">
+            Establecer como predeterminada
+          </button>
+          <button class="btn-delete" (click)="deleteCard(card.id)" [disabled]="loading">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mensaje cuando no hay tarjetas -->
+    <div *ngIf="!loading && paymentMethods.length === 0 && !showAddCard" class="no-cards-message">
+      <p>No tienes formas de pago guardadas.</p>
+      <button class="btn-primary" (click)="toggleAddCard()">Agregar tarjeta</button>
+    </div>
+
+    <!-- Botón para agregar nueva tarjeta -->
+    <div *ngIf="paymentMethods.length > 0 && !showAddCard" class="add-card-section">
+      <button class="btn-primary" (click)="toggleAddCard()">+ Agregar nueva tarjeta</button>
+    </div>
+
+    <!-- Formulario para nueva tarjeta -->
+    <div *ngIf="showAddCard" class="new-card-form">
+      <h3>Agregar nueva tarjeta</h3>
+      
+      <div class="form-group">
+        <label for="cardHolder">Nombre del titular</label>
+        <input id="cardHolder" type="text" [(ngModel)]="newCard.nombre_titular" 
+               placeholder="Como aparece en la tarjeta" class="form-input"
+               [class.input-error]="errorMessage && !newCard.nombre_titular">
+      </div>
+
+      <div class="form-group">
+        <label for="cardNumber">Número de tarjeta</label>
+        <input id="cardNumber" type="text" [(ngModel)]="newCard.numero_tarjeta" 
+               (input)="onCardNumberInput()"
+               placeholder="1234567890123456" maxlength="16" class="form-input"
+               [class.input-error]="cardNumberError">
+        <div *ngIf="cardNumberError" class="error-text">{{ cardNumberError }}</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cardType">Tipo de tarjeta</label>
+          <select id="cardType" [(ngModel)]="newCard.tipo_tarjeta" class="form-select">
+            <option value="visa">Visa</option>
+            <option value="mastercard">Mastercard</option>
+            <option value="amex">American Express</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="expiryMonth">Mes</label>
+          <input id="expiryMonth" type="text" [(ngModel)]="newCard.mes_expiracion" 
+                 (input)="onMonthInput()"
+                 placeholder="MM" maxlength="2" class="form-input"
+                 [class.input-error]="monthError">
+          <div *ngIf="monthError" class="error-text">{{ monthError }}</div>
+        </div>
+
+        <div class="form-group">
+          <label for="expiryYear">Año</label>
+          <input id="expiryYear" type="text" [(ngModel)]="newCard.anio_expiracion" 
+                 (input)="onYearInput()"
+                 placeholder="AA" maxlength="2" class="form-input"
+                 [class.input-error]="yearError">
+          <div *ngIf="yearError" class="error-text">{{ yearError }}</div>
+        </div>
+
+        <div class="form-group">
+          <label for="cvv">CVV</label>
+          <input id="cvv" type="text" [(ngModel)]="newCard.cvv" 
+                 (input)="onCvvInput()"
+                 placeholder="123" maxlength="3" class="form-input"
+                 [class.input-error]="cvvError">
+          <div *ngIf="cvvError" class="error-text">{{ cvvError }}</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-primary" (click)="saveNewCard()" [disabled]="loading">
+          {{ loading ? 'Guardando...' : 'Guardar tarjeta' }}
+        </button>
+        <button class="btn-secondary" (click)="toggleAddCard()" [disabled]="loading">
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

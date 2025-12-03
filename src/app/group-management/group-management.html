@@ -1,0 +1,96 @@
+<div class="group-management-container">
+  <a routerLink="/home" class="back-link">&larr; Volver a inicio</a>
+  
+  <div class="group-card">
+    <h2 class="group-title">Administración de Grupo Corporativo</h2>
+    
+    <div *ngIf="loading" class="loading">Cargando...</div>
+    
+    <div *ngIf="!loading">
+      <div class="group-info">
+        <h3 class="group-name">{{ groupName || 'Grupo Corporativo' }}</h3>
+        <p class="group-description">Gestiona los miembros de tu equipo corporativo</p>
+      </div>
+
+      <!-- Formulario para agregar nuevo miembro -->
+      <div class="add-member-section">
+        <h3 class="section-title">➕ Agregar Nuevo Miembro</h3>
+        <p class="info-text">⚠️ El usuario debe tener una cuenta registrada en la plataforma para poder ser agregado al grupo.</p>
+        
+        <div class="form-group">
+          <label for="memberEmail">Email del miembro *</label>
+          <input 
+            id="memberEmail" 
+            type="email" 
+            [(ngModel)]="newMemberEmail" 
+            placeholder="ejemplo@empresa.com"
+            class="form-input"
+            [disabled]="loading"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="memberName">Nombre completo *</label>
+          <input 
+            id="memberName" 
+            type="text" 
+            [(ngModel)]="newMemberName" 
+            placeholder="Juan Pérez"
+            class="form-input"
+            [disabled]="loading"
+          />
+        </div>
+
+        <button 
+          class="btn-add-member" 
+          (click)="addMember()" 
+          [disabled]="loading || !newMemberEmail || !newMemberName"
+        >
+          {{ loading ? 'Agregando...' : '➕ Agregar Miembro' }}
+        </button>
+
+        <div *ngIf="message" class="success-message">{{ message }}</div>
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      </div>
+
+      <!-- Lista de miembros actuales -->
+      <div class="members-section">
+        <h3 class="section-title">👥 Miembros del Grupo ({{ groupMembers.length }})</h3>
+        
+        <div *ngIf="groupMembers.length === 0" class="no-members">
+          No hay miembros en el grupo aún. Agrega el primero usando el formulario de arriba.
+        </div>
+
+        <div class="members-list" *ngIf="groupMembers.length > 0">
+          <div class="member-card" *ngFor="let member of groupMembers">
+            <div class="member-info">
+              <div class="member-avatar">
+                {{ member.nombre?.charAt(0)?.toUpperCase() || member.email?.charAt(0)?.toUpperCase() }}
+              </div>
+              <div class="member-details">
+                <div class="member-name">{{ member.nombre || 'Sin nombre' }}</div>
+                <div class="member-email">{{ member.email }}</div>
+                <div class="member-date" *ngIf="member.fecha_agregado">
+                  Miembro desde: {{ member.fecha_agregado | date:'short' }}
+                </div>
+              </div>
+            </div>
+            <div class="member-actions">
+              <button 
+                class="btn-remove-member" 
+                (click)="removeMember(member.id!)"
+                [disabled]="loading || member.id === currentUser?.id"
+                *ngIf="member.id !== currentUser?.id"
+              >
+                🗑️ Eliminar
+              </button>
+              <span class="admin-badge" *ngIf="member.id === currentUser?.id">
+                👑 Admin
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

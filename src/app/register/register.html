@@ -1,0 +1,90 @@
+<div class="auth">
+  <div class="card">
+    <h1 class="card__title">Crear cuenta</h1>
+
+    <form class="form register" (submit)="onSubmit($event)" novalidate>
+      <div class="form__field">
+        <label for="reg__username">
+          <svg class="icon"><use xlink:href="#icon-user"></use></svg>
+        </label>
+        <input
+          id="reg__username"
+          type="text"
+          class="form__input"
+          placeholder="Usuario"
+          autocomplete="username"
+          required
+        />
+      </div>
+
+      <div class="form__field">
+        <label for="reg__email">
+          <svg class="icon"><use xlink:href="#icon-mail"></use></svg>
+        </label>
+        <input
+          id="reg__email"
+          type="email"
+          class="form__input"
+          placeholder="Correo"
+          autocomplete="email"
+          required
+        />
+      </div>
+
+      <div class="form__field">
+        <label for="reg__password">
+          <svg class="icon"><use xlink:href="#icon-lock"></use></svg>
+        </label>
+        <input
+          id="reg__password"
+          type="password"
+          class="form__input"
+          placeholder="Contraseña"
+          autocomplete="new-password"
+          required
+        />
+      </div>
+
+      <div class="form__field">
+        <label for="reg__password2">
+          <svg class="icon"><use xlink:href="#icon-lock"></use></svg>
+        </label>
+        <input
+          id="reg__password2"
+          type="password"
+          class="form__input"
+          placeholder="Confirmar contraseña"
+          autocomplete="new-password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn btn--primary" [disabled]="loading">Crear cuenta</button>
+
+      <p *ngIf="errorMsg" class="msg msg--err">{{ errorMsg }}</p>
+      <p *ngIf="successMsg" class="msg msg--ok">{{ successMsg }}</p>
+    </form>
+
+    <p class="muted">¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión</a></p>
+    <p class="muted"><a routerLink="/login">Volver a inicio de sesión</a></p>
+  </div>
+</div>
+
+<!-- Íconos -->
+<svg xmlns="http://www.w3.org/2000/svg" class="icons">
+  <symbol id="icon-user" viewBox="0 0 1792 1792">
+    <path
+      d="M1600 1405q0 120-73 189.5t-194 69.5H459q-121 0-194-69.5T192 1405q-0-53 3.5-103.5t14-109T236 1084t43-97.5 62-81 85.5-53.5T538 832q9 0 42 21.5t74.5 48 108 48T896 971t133.5-21.5 108-48 74.5-48 42-21.5z"
+    />
+  </symbol>
+  <symbol id="icon-lock" viewBox="0 0 1792 1792">
+    <path
+      d="M640 768h512V576q0-106-75-181t-181-75-181 75-75 181v192zm832 96v576q0 40-28 68t-68 28H416q-40 0-68-28t-28-68V864q-0-40 28-68t68-28h32V576q0-184 132-316t316-132 316 132 132 316v192h32q40 0 68 28t28 68z"
+    />
+  </symbol>
+  <symbol id="icon-mail" viewBox="0 0 24 24">
+    <path
+      d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+    />
+  </symbol>
+</svg>

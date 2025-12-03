@@ -1,0 +1,155 @@
+
+<a routerLink="/memberships" class="back-link">&larr; VOLVER A MEMBRESÍAS</a>
+<div class="payment-container">
+	<div class="payment-card" *ngIf="membership">
+		<h2 class="payment-title">Pago de Membresía</h2>
+		<h3>{{ membership.name }}</h3>
+		<p class="price"><strong>{{ membership.price }}</strong></p>
+		<p><strong>Descripción:</strong> {{ membership.description }}</p>
+		<ul>
+			<li *ngFor="let f of membership.features">{{ f }}</li>
+		</ul>
+
+		<div *ngIf="membership.name === 'Corporativa'" class="corporate-group-section">
+			<label for="groupName" class="group-label"><strong>Nombre del grupo (requerido):</strong></label>
+			<input id="groupName" type="text" placeholder="Ej: Empresa ABC, Equipo Marketing..." 
+			       class="form-input group-input" [(ngModel)]="corporateGroupName" required />
+			<div *ngIf="errorMessage && errorMessage.includes('grupo')" class="error-text">
+				{{ errorMessage }}
+			</div>
+		</div>
+
+		<!-- Sección de formas de pago -->
+		<div class="payment-methods-section">
+			<h3 class="section-title">Selecciona forma de pago</h3>
+			
+			<!-- Tarjetas guardadas -->
+			<div *ngIf="paymentMethods.length > 0 && !showAddCard" class="saved-cards">
+				<div *ngFor="let pm of paymentMethods" class="card-option" 
+				     [class.selected]="selectedPaymentMethodId === pm.id"
+				     (click)="pm.id && (selectedPaymentMethodId = pm.id)">
+					<div class="card-icon">
+						<span *ngIf="pm.tipo_tarjeta === 'visa'">💳 VISA</span>
+						<span *ngIf="pm.tipo_tarjeta === 'mastercard'">💳 MC</span>
+						<span *ngIf="pm.tipo_tarjeta === 'amex'">💳 AMEX</span>
+					</div>
+					<div class="card-details">
+						<div class="card-number">**** **** **** {{ pm.ultimos_4_digitos }}</div>
+						<div class="card-holder">{{ pm.nombre_titular }}</div>
+						<div class="card-expiry">Exp: {{ pm.mes_expiracion }}/{{ pm.anio_expiracion }}</div>
+					</div>
+					<div class="card-radio">
+						<input type="radio" [checked]="selectedPaymentMethodId === pm.id" name="paymentMethod">
+					</div>
+				</div>
+				
+				<button class="btn-secondary" (click)="toggleAddCard()">
+					+ Agregar nueva tarjeta
+				</button>
+			</div>
+
+			<!-- Formulario para nueva tarjeta -->
+			<div *ngIf="showAddCard || paymentMethods.length === 0" class="new-card-form">
+				<div class="form-group">
+					<label for="cardHolder">Nombre del titular</label>
+					<input id="cardHolder" type="text" [(ngModel)]="newCard.nombre_titular" 
+					       placeholder="Como aparece en la tarjeta" class="form-input"
+					       [class.input-error]="errorMessage && !newCard.nombre_titular">
+				</div>
+
+				<div class="form-group">
+					<label for="cardNumber">Número de tarjeta</label>
+					<input id="cardNumber" type="text" [(ngModel)]="newCard.numero_tarjeta" 
+					       (input)="onCardNumberInput()"
+					       placeholder="1234567890123456" maxlength="16" class="form-input"
+					       [class.input-error]="cardNumberError">
+					<div *ngIf="cardNumberError" class="error-text">{{ cardNumberError }}</div>
+				</div>
+
+				<div class="form-row">
+					<div class="form-group">
+						<label for="cardType">Tipo</label>
+						<select id="cardType" [(ngModel)]="newCard.tipo_tarjeta" class="form-select">
+							<option value="visa">Visa</option>
+							<option value="mastercard">Mastercard</option>
+							<option value="amex">American Express</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="expiryMonth">Mes</label>
+						<input id="expiryMonth" type="text" [(ngModel)]="newCard.mes_expiracion" 
+						       (input)="onMonthInput()"
+						       placeholder="MM" maxlength="2" class="form-input"
+						       [class.input-error]="monthError">
+						<div *ngIf="monthError" class="error-text">{{ monthError }}</div>
+					</div>
+
+					<div class="form-group">
+						<label for="expiryYear">Año</label>
+						<input id="expiryYear" type="text" [(ngModel)]="newCard.anio_expiracion" 
+						       (input)="onYearInput()"
+						       placeholder="AA" maxlength="2" class="form-input"
+						       [class.input-error]="yearError">
+						<div *ngIf="yearError" class="error-text">{{ yearError }}</div>
+					</div>
+
+					<div class="form-group">
+						<label for="cvv">CVV</label>
+						<input id="cvv" type="text" [(ngModel)]="newCard.cvv" 
+						       (input)="onCvvInput()"
+						       placeholder="123" maxlength="3" class="form-input"
+						       [class.input-error]="cvvError">
+						<div *ngIf="cvvError" class="error-text">{{ cvvError }}</div>
+					</div>
+				</div>
+
+				<div class="form-group-checkbox">
+					<input id="saveCard" type="checkbox" [(ngModel)]="newCard.guardar">
+					<label for="saveCard">Guardar esta tarjeta para futuros pagos</label>
+				</div>
+
+				<button *ngIf="paymentMethods.length > 0" class="btn-secondary" (click)="toggleAddCard()">
+					Cancelar
+				</button>
+			</div>
+		</div>
+
+		<button class="btn" (click)="pagar()" [disabled]="processingPayment">
+			{{ processingPayment ? 'Procesando...' : 'Pagar' }}
+		</button>
+		
+		<div *ngIf="successMessage" class="success-message">
+			{{ successMessage }}
+		</div>
+		<div *ngIf="errorMessage" class="error-message" style="color: #d33; margin-top:0.5rem">
+			{{ errorMessage }}
+		</div>
+	</div>
+	<div *ngIf="!membership">
+		<div class="payment-card">
+			<p>No se recibió información de la membresía. Intenta regresar y seleccionar una opción.</p>
+		</div>
+	</div>
+
+	<!-- Modal de éxito -->
+	<div class="modal-overlay" *ngIf="showSuccessModal">
+		<div class="modal-content">
+			<div class="modal-header modal-header-success">
+				<h3>✅ ¡Pago Exitoso!</h3>
+			</div>
+			<div class="modal-body">
+				<p class="success-text">{{ successMessage }}</p>
+				<p>Tu membresía ha sido activada correctamente.</p>
+			</div>
+			<div class="modal-actions">
+				<button class="btn-modal-primary" (click)="goToProfile()">
+					👤 Ir a mi perfil
+				</button>
+				<button class="btn-modal-secondary" (click)="goToHome()">
+					🏠 Ir a inicio
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

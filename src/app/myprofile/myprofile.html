@@ -1,0 +1,93 @@
+
+<div class="profile-container">
+  <a routerLink="/home" class="back-link">&larr; Volver a inicio</a>
+  <!-- Title moved outside the grey card so it appears above the overlay -->
+  <h2 class="profile-title">Bienvenido a tu perfil</h2>
+	<div class="profile-card">
+
+		<div *ngIf="loading">Cargando perfil...</div>
+		<div *ngIf="!loading">
+			<div class="profile-header">
+				<img *ngIf="user?.user_metadata?.avatar_url" [src]="user.user_metadata.avatar_url" alt="avatar" class="profile-avatar" />
+				<div class="profile-details">
+					<div class="profile-row"><strong>Nombre:</strong> <span>{{ displayName }}</span></div>
+					<div class="profile-row"><strong>Email:</strong> <span>{{ user?.email }}</span></div>
+					<div class="profile-row">
+						<strong>Membresía:</strong> 
+						<span>{{ membership?.tipo_membresia || 'Sin membresía' }}</span>
+					</div>
+					<div class="profile-row" *ngIf="membership?.fecha_fin"><strong>Vence:</strong> <span>{{ membership?.fecha_fin | date:'short' }}</span></div>
+				</div>
+			</div>
+
+			<!-- Botón para cancelar membresía -->
+			<div *ngIf="membership" class="membership-actions">
+				<button class="btn-cancel-membership" (click)="cancelMembership()" [disabled]="loading">
+					🗑️ Cancelar mi membresía
+				</button>
+			</div>
+
+			<!-- Botón para ver formas de pago -->
+			<div class="payment-methods-link">
+				<a routerLink="/payment-methods" class="btn-payment-methods">
+					💳 Ver mis formas de pago
+				</a>
+			</div>
+
+			<div class="profile-row" style="margin-top:.5rem"><strong>Reservas actuales (total):</strong> <span>{{ reservations.length }}</span></div>
+			<ul class="profile-list">
+				<li class="reservation-item" *ngFor="let r of reservations">
+					<div class="reservation-info">Espacio #{{ r.id_espacio }}</div>
+					<div class="reservation-meta">{{ r.fecha_inicio | date:'short' }} — {{ r.fecha_fin | date:'short' }}</div>
+					<div>
+						<button class="btn cancel-btn" (click)="cancelReservation(r.id_reserva)" [disabled]="loading">Cancelar</button>
+					</div>
+				</li>
+				<li *ngIf="reservations.length === 0">No tienes reservas.</li>
+			</ul>
+			<div class="infoMessage" *ngIf="infoMessage">{{ infoMessage }}</div>
+		</div>
+	</div>
+
+	<!-- Modal de confirmación para cancelar reserva -->
+	<div class="modal-overlay" *ngIf="showCancelReservationConfirmation" (click)="cancelCancelReservation()">
+		<div class="modal-content" (click)="$event.stopPropagation()">
+			<div class="modal-header modal-header-warning">
+				<h3>⚠️ Cancelar Reserva</h3>
+			</div>
+			<div class="modal-body">
+				<p>¿Estás seguro de que quieres cancelar esta reserva?</p>
+				<p class="warning-text">Esta acción no se puede deshacer.</p>
+			</div>
+			<div class="modal-actions">
+				<button class="btn-modal-cancel" (click)="cancelCancelReservation()">
+					No, mantener reserva
+				</button>
+				<button class="btn-modal-confirm" (click)="confirmCancelReservation()">
+					Sí, cancelar reserva
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal de confirmación para cancelar membresía -->
+	<div class="modal-overlay" *ngIf="showCancelConfirmation" (click)="cancelCancelMembership()">
+		<div class="modal-content" (click)="$event.stopPropagation()">
+			<div class="modal-header">
+				<h3>⚠️ Confirmar Cancelación</h3>
+			</div>
+			<div class="modal-body">
+				<p>¿Estás seguro de que quieres cancelar tu membresía?</p>
+				<p class="warning-text">Esta acción no se puede deshacer y perderás todos los beneficios asociados.</p>
+			</div>
+			<div class="modal-actions">
+				<button class="btn-modal-cancel" (click)="cancelCancelMembership()">
+					No, mantener membresía
+				</button>
+				<button class="btn-modal-confirm" (click)="confirmCancelMembership()">
+					Sí, cancelar membresía
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

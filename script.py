@@ -1,7 +1,10 @@
+
 #this code is able to generate a QR based on the desk reservation details
 import random
 import string
 import qrcode
+
+
 
 def code_generator(length=8, use_uppercase=True, use_numbers=True, use_special_chars=False):
     #if length is less than 1, raise an error
